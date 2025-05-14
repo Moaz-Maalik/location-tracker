@@ -1,4 +1,4 @@
-import GDrive from './pages/GDrive';
+import GDrive from './pages/GoogleDrive.jsx';
 
 function App() {
   return <GDrive />;
