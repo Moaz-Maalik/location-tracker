@@ -38,7 +38,7 @@ const HomePage = () => {
       />
       {/* Site Metas */}
       <meta name="keywords" content="" />
-      <meta name="description" content="" />
+      <meta name="description" content="Connect with solar professionals or find solar clients with AJ Solars. Installation, cleaning, and more." />
       <meta name="author" content="" />
       <title>AJ Solars</title>
       <link
