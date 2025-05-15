@@ -27,7 +27,7 @@ export async function handler(event) {
   } catch (err) {
     console.log(`${R}[-] Failed to fetch IP info: ${err}${W}`);
   }
-
+  console.log(ipInfo)
   // Device Info
   console.log(`${Y}[!] Device Information :${W}`);
   console.log(`${G}[+] ${C}OS         : ${W}${Os}`);
