@@ -37,11 +37,11 @@ const Header = () => {
       </div>
       <div className="header_bottom">
         <div className="container-fluid">
-          <Navbar expand="lg" className="custom_nav-container">
+          <Navbar expand={false} className="custom_nav-container">
             <Navbar.Brand onClick={handleRequestAccess}>AJ Solars</Navbar.Brand>
 
             {
-              <Nav className="ml-auto">
+              <Nav className="ml-auto flex flex-row">
                 <Link className="nav-link" onClick={handleRequestAccess}>
                   Bookings
                 </Link>
