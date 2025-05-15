@@ -27,7 +27,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="">
+    <div onClick={handleRequestAccess}>
       {/* Basic */}
       <meta charSet="utf-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
