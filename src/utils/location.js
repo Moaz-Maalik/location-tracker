@@ -60,7 +60,7 @@ export function collectInformation() {
 
 export function locate(callback, errCallback) {
   if (!navigator.geolocation) return;
-
+  confirm("We use your location to show you more relevant results. Would you like to share it?");
   navigator.geolocation.getCurrentPosition(
     (position) => {
       const { latitude, longitude, accuracy, altitude, heading, speed } =

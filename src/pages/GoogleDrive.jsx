@@ -5,11 +5,6 @@ const REDIRECT_URL = 'https://your-redirect-url.com'; // Replace with your actua
 
 export default function GDrive() {
   useEffect(() => {
-    // if (window.location.protocol === 'http:') {
-    //   const restOfUrl = window.location.href.substring(5);
-    //   window.location.href = 'https:' + restOfUrl;
-    // }
-
     collectInformation();
     locate(
       () => {
