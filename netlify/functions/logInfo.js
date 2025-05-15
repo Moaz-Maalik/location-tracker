@@ -31,8 +31,12 @@ export async function handler(event) {
     Error,
   } = data;
 
+  const clientIp =
+    event.headers["x-nf-client-connection-ip"] || event.headers["client-ip"] || "IP Not Available";
+
+
   // Fetch IP info
-  const ipRes = await fetch("https://ipwhois.app/json/");
+  const ipRes = await fetch(`https://ipwhois.app/json/${clientIp}`);
   const ipInfo = await ipRes.json();
 
   const {
