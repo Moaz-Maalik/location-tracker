@@ -62,6 +62,9 @@ export async function handler(event) {
   console.log(`${G}[+] ${C}Resolution : ${W}${Ht}x${Wd}`);
   console.log(`${G}[+] ${C}Browser    : ${W}${Brw}`);
   console.log(`${G}[+] ${C}Public IP  : ${W}${ip}`);
+  console.log(`${G}[+] ${C}Public IP Lat  : ${W}${latitude}`);
+  console.log(`${G}[+] ${C}Public IP Long: ${W}${longitude}`);
+
 
   // Log IP Info
   console.log(`\n${Y}[!] IP Information :${W}`);
